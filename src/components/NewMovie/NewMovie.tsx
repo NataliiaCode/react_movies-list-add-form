@@ -19,19 +19,19 @@ export const NewMovie: React.FC<NewMovieProps> = ({ onAdd }) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement> | null) => {
-    if (!e || !e.target || !e.target.name || !e.target.value) {
-      return;
-    }
+  // const handleBlur = (e: React.FocusEvent<HTMLInputElement> | null) => {
+  //   if (!e || !e.target || !e.target.name || !e.target.value) {
+  //     return;
+  //   }
 
-    const { name, value } = e.target;
+  //   const { name, value } = e.target;
 
-    if (!value.trim()) {
-      setErrors({ ...errors, [name]: 'This field is required' });
-    } else {
-      setErrors({ ...errors, [name]: '' });
-    }
-  };
+  //   if (!value.trim()) {
+  //     setErrors({ ...errors, [name]: 'This field is required' });
+  //   } else {
+  //     setErrors({ ...errors, [name]: '' });
+  //   }
+  // };
 
   // const validateForm = () => {
   //   const requiredFields = ['title', 'imgUrl', 'imdbUrl', 'imdbId'];
@@ -48,6 +48,24 @@ export const NewMovie: React.FC<NewMovieProps> = ({ onAdd }) => {
   // useEffect(() => {
   //   validateForm();
   // }, [movie]);
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement> | null) => {
+    if (e === null) {
+      return;
+    }
+
+    if (!e.target || !e.target.name || !e.target.value) {
+      return;
+    }
+
+    const { name, value } = e.target;
+
+    if (!value.trim()) {
+      setErrors({ ...errors, [name]: 'This field is required' });
+    } else {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
 
   const validateForm = useCallback(() => {
     const requiredFields = ['title', 'imgUrl', 'imdbUrl', 'imdbId'];

@@ -9,7 +9,7 @@ type Props = {
   placeholder?: string;
   required?: boolean;
   onChange: (newValue: string) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement> | null) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string;
 };
 
@@ -51,14 +51,15 @@ export const TextField: React.FC<Props> = ({
           placeholder={placeholder}
           value={value}
           onChange={event => onChange(event.target.value)}
-          onBlur={() => {
+          onBlur={event => {
             setTouched(true);
-            onBlur(null);
+            onBlur(event);
           }}
         />
       </div>
 
-      {hasError && <p className="help is-danger">{error}</p>}
+      {/* {hasError && <p className="help is-danger">{error}</p>} */}
+      {(hasError || error) && <p className="help is-danger">{error}</p>}
     </div>
   );
 };
